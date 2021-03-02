@@ -8,9 +8,14 @@
 #
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
-config.navigational_formats = []
-
 Devise.setup do |config|
+  # The secret key used by Devise. Devise uses this key to generate
+  # random tokens. Changing this key will render invalid all existing
+  # confirmation, reset password and unlock tokens in the database.
+  # Devise will use the `secret_key_base` as its `secret_key`
+  # by default. You can change it below and use your own secret key.
+  # config.secret_key = '1ee1fe7b0fca8d62268c5cda75d8d37e91982803a621e1edf527e39af2465705730d788a32c74af9f2b44a39b44803c0d3303cab1b1d7ce503e739d7b620fea4'
+  config.navigational_formats = []
   config.jwt do |jwt|
     jwt.secret = ENV['DEVISE_JWT_SECRET_KEY']
 		jwt.dispatch_requests = [
@@ -21,13 +26,6 @@ Devise.setup do |config|
 	  ]
 	  jwt.expiration_time = 1.day.to_i
   end
-  # The secret key used by Devise. Devise uses this key to generate
-  # random tokens. Changing this key will render invalid all existing
-  # confirmation, reset password and unlock tokens in the database.
-  # Devise will use the `secret_key_base` as its `secret_key`
-  # by default. You can change it below and use your own secret key.
-  # config.secret_key = 'efa158f35b8b456990088f03b3fc168a9dbdc8706a647491728ed51c041cb9ff96f719da3af80837334353500b815ba00abb36884b8ecd1b387f0783c39c65a5'
-
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
   # config.parent_controller = 'DeviseController'
@@ -138,7 +136,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 12
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = '90904afbc5b31755a12d220c20d03e675a7ff1dea850cb1a721abaac486ea3e2cabfe01eda50a7cb4bd31ea0897247fa3c3ff3d69a4e3b69e48acca2609816f9'
+  # config.pepper = 'eee37476402cc420162328102748b932acc05f08665fc0dd74b1714e6be1709f90f3012e1d435872a9e656f5e2651e196783f39c8ef6a9b1840f00c5ef86ee28'
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false
