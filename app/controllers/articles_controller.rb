@@ -1,7 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :check_if_private, only: [:show ]
   before_action :check_if_author, only: [:update, :destroy]
 
   # GET /articles
@@ -53,11 +52,6 @@ class ArticlesController < ApplicationController
       params.require(:article).permit(:title, :content)
     end
 
-    def check_if_private
-      unless !@article.is_private || (current_user && current_user.id == @article.user.id)
-        render json: {status: "error", code: 401, message: "This article is private"}
-      end
-    end
 
     def check_if_author
       unless current_user && current_user.id == @article.user.id
