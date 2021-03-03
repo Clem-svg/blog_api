@@ -1,6 +1,8 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :update, :destroy]
-  before_action :authenticate_user!, only: [:create, :update]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :check_if_private, only: [:show ]
+  before_action :check_if_author, only: [:update, :destroy]
 
   # GET /articles
   def index
@@ -17,7 +19,7 @@ class ArticlesController < ApplicationController
   # POST /articles
   def create
     @article = Article.new(article_params)
-    @article.user = current_user
+    @article.user_id = current_user.id
 
     if @article.save
       render json: @article, status: :created, location: @article
@@ -48,6 +50,18 @@ class ArticlesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def article_params
-      params.require(:article).permit(:title, :content, :user_id)
+      params.require(:article).permit(:title, :content)
+    end
+
+    def check_if_private
+      unless !@article.is_private || (current_user && current_user.id == @article.user.id)
+        render json: {status: "error", code: 401, message: "This article is private"}
+      end
+    end
+
+    def check_if_author
+      unless current_user && current_user.id == @article.user.id
+        render json: {status: "error", code: 401, message: "You can't modify this article"}
+      end
     end
 end
