@@ -91,6 +91,8 @@ GEM
     dry-core (0.5.0)
       concurrent-ruby (~> 1.0)
     erubi (1.10.0)
+    faker (2.16.0)
+      i18n (>= 1.6, < 2)
     ffi (1.14.2)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
@@ -179,6 +181,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    table_print (1.5.7)
     thor (1.1.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
@@ -203,6 +206,7 @@ DEPENDENCIES
   devise
   devise-jwt
   dotenv-rails
+  faker
   jsonapi-rails
   listen (~> 3.3)
   pg (~> 1.1)
@@ -210,6 +214,7 @@ DEPENDENCIES
   rack-cors
   rails (~> 6.1.3)
   spring
+  table_print
   tzinfo-data
 
 RUBY VERSION
